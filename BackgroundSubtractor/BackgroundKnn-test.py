@@ -29,11 +29,14 @@ while True:
     if counts<10:
         counts+=1
         continue
+#调整阈值，使其得到最佳的detect结果。
     th=cv2.threshold(fgmask.copy(),244,255,cv2.THRESH_BINARY)[1]
+#调整getStructuringElement（kernel值）。
     th=cv2.erode(th,cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3)),iterations=2)
     dilated=cv2.dilate(th,cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(8,3)),iterations=2)
     image,contours,hier=cv2.findContours(dilated,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     for c in contours:
+        #调整侦测到的图像大小，过滤掉较小的部分。
         if cv2.contourArea(c)>400:
             (x,y,w,h)=cv2.boundingRect(c)
             cv2.rectangle(frame,(x,y),(x+w,y+h),(255,255,0),2)
