@@ -10,7 +10,7 @@ import numpy as np
 path=r'768x576.avi'
 camera=cv2.VideoCapture(path)
 history=5
-bs=cv2.createBackgroundSubtractorMOG2(detectShadows=True) cv2.createB
+bs=cv2.createBackgroundSubtractorMOG2(detectShadows=True)
 bs.setHistory(history)
 counts=0
 while True:
